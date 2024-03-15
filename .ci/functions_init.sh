@@ -25,9 +25,8 @@ function install_golang() {
     fi
 
     sudo tar -C /usr/local -xzf "go${release}.linux-amd64.tar.gz" &&
-        echo "export PATH=$PATH:/usr/local/go/bin" >>"${HOME}/.bash_profile" &&
         echo "export GOPATH=${HOME}/go" >>"${HOME}/.bash_profile" &&
-        echo "export GOROOT=/usr/local/go" >>"${HOME}/.bash_profile" &&
+        echo "export PATH=$PATH:/usr/local/go/bin:${GOPATH}/bin" >>"${HOME}/.bash_profile" &&
         source "${HOME}/.bash_profile" &&
         go version
 }
