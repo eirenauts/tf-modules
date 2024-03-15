@@ -17,8 +17,8 @@ trigger:
     include:
       - "*"
 
-variables:
-  GOROOT: /usr/local/go
+#variables:
+#  GOROOT: /usr/local/go
 
 pool:
   vmImage: ubuntu-22.04

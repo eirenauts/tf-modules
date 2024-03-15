@@ -136,7 +136,7 @@ function install_all_deps() {
     echo "${GOROOT}" || true
     go version || true
     sudo rm -R /usr/local/go || true
-    install_golang
+    #install_golang
     install_shfmt
     install_asdf &&
         (
