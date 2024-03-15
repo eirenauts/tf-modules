@@ -84,11 +84,15 @@ function install_shfmt() {
         sudo apt-get install -y -qq git
     fi
 
-    GOPATH=${GOPATH:-${HOME}/go} &&
-        GOOS="${goos}" GOARCH="${goarch}" \
-            GO111MODULE=on go install "mvdan.cc/sh/v3/cmd/shfmt@v${release}" &&
-        sudo mv "${GOPATH}/bin/shfmt" /usr/local/bin/shfmt &&
-        shfmt --version
+
+    GOPROXY=direct \
+    GO111MODULE=on \
+    GOSUMDB=sum.golang.org \
+    GOPROXY=https://proxy.golang.org \
+        go install "mvdan.cc/sh/v3/cmd/shfmt@v${version}"
+
+    sudo mv "${GOPATH}/bin/shfmt" /usr/local/bin/shfmt &&
+    shfmt --version
 }
 
 function install_node() {
