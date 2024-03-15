@@ -11,7 +11,8 @@ function install_shfmt() {
     wget https://raw.githubusercontent.com/stephenmoloney/localbox/changed/go-installation/bin/install/go.sh
     chmod +x go.sh
     ./go.sh
-    wget https://raw.githubusercontent.com/stephenmoloney/localbox/master/bin/install/shfmt.sh
+    wget https://raw.githubusercontent.com/stephenmoloney/localbox/changed/go-installation/bin/install/shfmt.sh
+#    wget https://raw.githubusercontent.com/stephenmoloney/localbox/master/bin/install/shfmt.sh
     chmod +x shfmt.sh
     ./shfmt.sh
 }
