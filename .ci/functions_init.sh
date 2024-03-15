@@ -130,6 +130,7 @@ function install_all_deps() {
 #    echo "export GOROOT=/usr/local/go" >>"${HOME}/.bash_profile"
 #    source "${HOME}/.bash_profile"
 #    go version
+    sudo apt-get remove –purge golang
     install_golang
     install_shfmt
     install_asdf &&
