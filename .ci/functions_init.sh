@@ -84,12 +84,11 @@ function install_shfmt() {
         sudo apt-get install -y -qq git
     fi
 
-
     GOPROXY=direct \
     GO111MODULE=on \
     GOSUMDB=sum.golang.org \
     GOPROXY=https://proxy.golang.org \
-        go install "mvdan.cc/sh/v3/cmd/shfmt@v${version}"
+        go install "mvdan.cc/sh/v3/cmd/shfmt@v${release}"
 
     sudo mv "${GOPATH}/bin/shfmt" /usr/local/bin/shfmt &&
     shfmt --version
