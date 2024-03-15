@@ -8,7 +8,7 @@ function install_asdf() {
 }
 
 function install_shfmt() {
-    wget -O - https://raw.githubusercontent.com/stephenmoloney/localbox/changed/go-installation/bin/install/go.sh | bash
+#    wget -O - https://raw.githubusercontent.com/stephenmoloney/localbox/changed/go-installation/bin/install/go.sh | bash
     wget -O - https://raw.githubusercontent.com/stephenmoloney/localbox/master/bin/install/shfmt.sh | bash
 }
 
@@ -66,7 +66,12 @@ function install_opentofu() {
 #}
 
 function install_all_deps() {
-#    install_golang
+    install_golang
+    echo "export PATH=$PATH:/usr/local/go/bin" >>"${HOME}/.bash_profile" &&
+    echo "export GOPATH=${HOME}/go" >>"${HOME}/.bash_profile" &&
+    echo "export GOROOT=/usr/local/go" >>"${HOME}/.bash_profile" &&
+    source "${HOME}/.bash_profile" &&
+    go version
     install_shfmt
     install_asdf &&
         (
