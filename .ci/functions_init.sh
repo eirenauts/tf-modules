@@ -8,8 +8,12 @@ function install_asdf() {
 }
 
 function install_shfmt() {
-    wget -O - https://raw.githubusercontent.com/stephenmoloney/localbox/changed/go-installation/bin/install/go.sh | bash
-    wget -O - https://raw.githubusercontent.com/stephenmoloney/localbox/master/bin/install/shfmt.sh | bash
+    wget https://raw.githubusercontent.com/stephenmoloney/localbox/changed/go-installation/bin/install/go.sh
+    chmod +x go.sh
+    ./go.sh
+    wget https://raw.githubusercontent.com/stephenmoloney/localbox/master/bin/install/shfmt.sh
+    chmod +x shfmt.sh
+    ./shfmt.sh
 }
 
 function install_node() {
