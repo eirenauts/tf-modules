@@ -11,7 +11,7 @@ function install_golang() {
     local release=$1
 
     if [[ -z "${release}" ]]; then
-        release=1.22.0
+        release=1.21.0
     fi
 
     if [ -z "$(command -v wget)" ]; then
