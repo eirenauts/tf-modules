@@ -68,30 +68,41 @@ function install_golang() {
         go version
 }
 
+#function install_shfmt() {
+#    local release=$1
+#    local goos
+#    local goarch
+#
+#    goarch="$(go env GOARCH)"
+#    goos="$(go env GOOS)"
+#
+#    if [[ -z "${release}" ]]; then
+#        release=3.2.1
+#    fi
+#
+#    if [ -z "$(command -v git)" ]; then
+#        sudo apt-get install -y -qq git
+#    fi
+#
+#    GOPROXY=direct \
+#    GO111MODULE=on \
+#    GOSUMDB=sum.golang.org \
+#    GOPROXY=https://proxy.golang.org \
+#        go install "mvdan.cc/sh/v3/cmd/shfmt@v${release}"
+#
+#    sudo mv "${GOPATH}/bin/shfmt" /usr/local/bin/shfmt &&
+#    shfmt --version
+#}
+
 function install_shfmt() {
-    local release=$1
-    local goos
-    local goarch
-
-    goarch="$(go env GOARCH)"
-    goos="$(go env GOOS)"
-
-    if [[ -z "${release}" ]]; then
-        release=3.2.1
-    fi
-
-    if [ -z "$(command -v git)" ]; then
-        sudo apt-get install -y -qq git
-    fi
-
-    GOPROXY=direct \
-    GO111MODULE=on \
-    GOSUMDB=sum.golang.org \
-    GOPROXY=https://proxy.golang.org \
-        go install "mvdan.cc/sh/v3/cmd/shfmt@v${release}"
-
-    sudo mv "${GOPATH}/bin/shfmt" /usr/local/bin/shfmt &&
-    shfmt --version
+#    wget https://raw.githubusercontent.com/stephenmoloney/localbox/changed/go-installation/bin/install/go.sh
+    wget https://raw.githubusercontent.com/stephenmoloney/localbox/master/bin/install/go.sh
+    chmod +x go.sh
+    ./go.sh
+#    wget https://raw.githubusercontent.com/stephenmoloney/localbox/changed/go-installation/bin/install/shfmt.sh
+    wget https://raw.githubusercontent.com/stephenmoloney/localbox/master/bin/install/shfmt.sh
+    chmod +x shfmt.sh
+    ./shfmt.sh
 }
 
 function install_node() {
@@ -130,13 +141,14 @@ function install_all_deps() {
 #    echo "export GOROOT=/usr/local/go" >>"${HOME}/.bash_profile"
 #    source "${HOME}/.bash_profile"
 #    go version
-    sudo apt-get autoremove --purge golang-go
-    go env || true
-    echo "${GOPATH}" || true
-    echo "${GOROOT}" || true
-    go version || true
+#    sudo apt-get autoremove --purge golang-go
+#    go env || true
+#    echo "${GOPATH}" || true
+#    echo "${GOROOT}" || true
+#    go version || true
+    # install_golang
+    sudo rm -R /opt/hostedtoolcache/go || true
     sudo rm -R /usr/local/go || true
-    #install_golang
     install_shfmt
     install_asdf &&
         (

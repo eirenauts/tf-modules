@@ -20,6 +20,12 @@ trigger:
 #variables:
 #  GOROOT: /usr/local/go
 
+variables:
+  GOPATH: '$(Agent.HomeDirectory)/go' # Go workspace path
+  GOBIN:  '$(GOPATH)/bin' # Go binaries path
+  GOROOT: '/usr/local/go'
+  # GOROOT: '/opt/hostedtoolcache/go/1.21.8/x64' # Go installation path
+
 pool:
   vmImage: ubuntu-22.04
 
