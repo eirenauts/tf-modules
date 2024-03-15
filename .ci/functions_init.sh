@@ -7,11 +7,47 @@ function install_asdf() {
     export ASDF_DIR="${HOME}/.asdf" && source "${HOME}/.asdf/asdf.sh"
 }
 
+#function install_golang() {
+#    local release=$1
+#
+#    if [[ -z "${release}" ]]; then
+#        release=1.21.0
+#    fi
+#
+#    if [ -z "$(command -v wget)" ]; then
+#        sudo apt-get install -y -qq wget
+#    fi
+#
+#    wget --quiet "https://dl.google.com/go/go${release}.linux-amd64.tar.gz"
+#
+#    if [[ -d /usr/local/go ]]; then
+#        sudo rm -R /usr/local/go
+#    fi
+#
+#    sudo tar -C /usr/local -xzf "go${release}.linux-amd64.tar.gz" &&
+#        echo "export GOPATH=${HOME}/go" >>"${HOME}/.bash_profile" &&
+#        echo "export PATH=$PATH:/usr/local/go/bin:${GOPATH}/bin" >>"${HOME}/.bash_profile" &&
+#        source "${HOME}/.bash_profile" &&
+#        go version
+#}
+#
+#function install_shfmt() {
+##    wget https://raw.githubusercontent.com/stephenmoloney/localbox/changed/go-installation/bin/install/go.sh
+##    chmod +x go.sh
+##    ./go.sh
+#    install_golang
+#    wget https://raw.githubusercontent.com/stephenmoloney/localbox/changed/go-installation/bin/install/shfmt.sh
+##    wget https://raw.githubusercontent.com/stephenmoloney/localbox/master/bin/install/shfmt.sh
+#    chmod +x shfmt.sh
+#    ./shfmt.sh
+#}
+
+
 function install_golang() {
     local release=$1
 
     if [[ -z "${release}" ]]; then
-        release=1.21.0
+        release=1.15.6
     fi
 
     if [ -z "$(command -v wget)" ]; then
@@ -25,21 +61,34 @@ function install_golang() {
     fi
 
     sudo tar -C /usr/local -xzf "go${release}.linux-amd64.tar.gz" &&
+        echo "export PATH=$PATH:/usr/local/go/bin" >>"${HOME}/.bash_profile" &&
         echo "export GOPATH=${HOME}/go" >>"${HOME}/.bash_profile" &&
-        echo "export PATH=$PATH:/usr/local/go/bin:${GOPATH}/bin" >>"${HOME}/.bash_profile" &&
+        echo "export GOROOT=/usr/local/go" >>"${HOME}/.bash_profile" &&
         source "${HOME}/.bash_profile" &&
         go version
 }
 
 function install_shfmt() {
-#    wget https://raw.githubusercontent.com/stephenmoloney/localbox/changed/go-installation/bin/install/go.sh
-#    chmod +x go.sh
-#    ./go.sh
-    install_golang
-    wget https://raw.githubusercontent.com/stephenmoloney/localbox/changed/go-installation/bin/install/shfmt.sh
-#    wget https://raw.githubusercontent.com/stephenmoloney/localbox/master/bin/install/shfmt.sh
-    chmod +x shfmt.sh
-    ./shfmt.sh
+    local release=$1
+    local goos
+    local goarch
+
+    goarch="$(go env GOARCH)"
+    goos="$(go env GOOS)"
+
+    if [[ -z "${release}" ]]; then
+        release=3.2.1
+    fi
+
+    if [ -z "$(command -v git)" ]; then
+        sudo apt-get install -y -qq git
+    fi
+
+    GOPATH=${GOPATH:-${HOME}/go} &&
+        GOOS="${goos}" GOARCH="${goarch}" \
+            GO111MODULE=on go install "mvdan.cc/sh/v3/cmd/shfmt@v${release}" &&
+        sudo mv "${GOPATH}/bin/shfmt" /usr/local/bin/shfmt &&
+        shfmt --version
 }
 
 function install_node() {
@@ -78,6 +127,7 @@ function install_all_deps() {
 #    echo "export GOROOT=/usr/local/go" >>"${HOME}/.bash_profile"
 #    source "${HOME}/.bash_profile"
 #    go version
+    install_golang
     install_shfmt
     install_asdf &&
         (
