@@ -67,10 +67,10 @@ function install_golang() {
 
 function install_all_deps() {
     install_golang
-    echo "export PATH=$PATH:/usr/local/go/bin" >>"${HOME}/.bash_profile" &&
-    echo "export GOPATH=${HOME}/go" >>"${HOME}/.bash_profile" &&
-    echo "export GOROOT=/usr/local/go" >>"${HOME}/.bash_profile" &&
-    source "${HOME}/.bash_profile" &&
+    echo "export PATH=$PATH:/usr/local/go/bin" >>"${HOME}/.bash_profile"
+    echo "export GOPATH=${HOME}/go" >>"${HOME}/.bash_profile"
+    echo "export GOROOT=/usr/local/go" >>"${HOME}/.bash_profile"
+    source "${HOME}/.bash_profile"
     go version
     install_shfmt
     install_asdf &&
