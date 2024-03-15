@@ -131,7 +131,8 @@ function install_all_deps() {
 #    source "${HOME}/.bash_profile"
 #    go version
     sudo apt-get autoremove --purge golang-go
-    sudo rm -R /usr/local/go/
+    go env
+    sudo rm -R /usr/local/go || true
     install_golang
     install_shfmt
     install_asdf &&
