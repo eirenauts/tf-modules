@@ -16,3 +16,4 @@ steps:
         rm -rf "${GOROOT_AZURE_AGENT}" || true
         rm -rf "${AZURE_TOOLS_CACHE}" || true
         make install_deps
+        tofu version

@@ -46,9 +46,11 @@ function install_opentofu() {
 function install_deps() {
     ./.ci/exec_functions.sh install_shfmt
     ./.ci/exec_functions.sh install_asdf
-    source "${HOME}/.asdf/asdf.sh"
-    ./.ci/exec_functions.sh install_node
-    ./.ci/exec_functions.sh install_yarn
-    ./.ci/exec_functions.sh install_npm_modules
-    ./.ci/exec_functions.sh install_opentofu
+    source "${HOME}/.asdf/asdf.sh" &&
+        (
+            ./.ci/exec_functions.sh install_node &&
+                ./.ci/exec_functions.sh install_yarn &&
+                ./.ci/exec_functions.sh install_npm_modules &&
+                ./.ci/exec_functions.sh install_opentofu
+        )
 }
