@@ -20,8 +20,9 @@ stages:
             inputs:
               targetType: "inline"
               workingDirectory: "$(Build.Repository.LocalPath)"
-              failOnStderr: false
+              failOnStderr: true
               noProfile: true
               noRc: true
               script: |
+                source "${HOME}/.asdf/asdf.sh"
                 make lint
