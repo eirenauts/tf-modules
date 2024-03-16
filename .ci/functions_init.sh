@@ -5,7 +5,8 @@ function install_asdf() {
     wget -q https://raw.githubusercontent.com/stephenmoloney/localbox/master/bin/install/asdf.sh
     chmod +x ./asdf.sh && ./asdf.sh
     rm ./asdf.sh
-    export ASDF_DIR="${HOME}/.asdf" && source "${HOME}/.asdf/asdf.sh"
+    export ASDF_DIR="${HOME}/.asdf"
+    source "${HOME}/.asdf/asdf.sh"
 }
 
 function install_shfmt() {
@@ -53,5 +54,4 @@ function install_deps() {
             ./.ci/exec_functions.sh install_npm_modules &&
             ./.ci/exec_functions.sh install_opentofu
     )
-    source "${HOME}/.asdf/asdf.sh"
 }
