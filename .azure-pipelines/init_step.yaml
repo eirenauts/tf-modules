@@ -6,10 +6,11 @@ steps:
     inputs:
       targetType: "inline"
       workingDirectory: "$(Build.Repository.LocalPath)"
-      failOnStderr: true
+      failOnStderr: false
       noProfile: true
       noRc: true
       script: |
+        set -e
         if [ -z "$(command -v make)" ]; then
           apt-get update -y -qq && apt-get install -y -qq build-essential sudo
         fi
